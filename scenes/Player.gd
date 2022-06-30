@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var SPEED := 300
 export var JUMP_SPEED := -600
 export var GRAVITY := 2200
-export var stomp_bump_strength := -800.0
+export var stomp_bump_strength := -400.0
 
 const UP_DIR = Vector2.UP
 

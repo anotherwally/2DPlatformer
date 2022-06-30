@@ -11,6 +11,7 @@ Created to contain pretty simple code for Kinematic2D character movement.
 
 - Stomping enemies
 - Wall jump
+- Camera movement
 
 # Assets
 
