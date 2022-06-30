@@ -97,4 +97,6 @@ anims/jump = SubResource( 4 )
 anims/walk = SubResource( 3 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-cast_to = Vector2( 0, 20 )
+enabled = true
+cast_to = Vector2( 0, 15 )
+collision_mask = 4

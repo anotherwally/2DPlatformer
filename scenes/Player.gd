@@ -3,6 +3,7 @@ extends KinematicBody2D
 export var SPEED := 300
 export var JUMP_SPEED := -600
 export var GRAVITY := 2200
+export var stomp_bump_strength := -800.0
 
 const UP_DIR = Vector2.UP
 
@@ -88,7 +89,8 @@ func _stomp() -> void:
 			var collision := get_slide_collision(idx)
 			
 			if collision.collider.is_in_group("enemies"):
-				print_debug("ENEMY!")
+				collision.collider.queue_free()
+				velocity.y = stomp_bump_strength
 
 
 func _physics_process(delta: float) -> void:
