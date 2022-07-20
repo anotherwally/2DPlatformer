@@ -1,17 +1,18 @@
-# GODOT 2D PLatformer Basics
+# GODOT 2D Platformer Basics
 
 Created to contain pretty simple code for Kinematic2D character movement.
 
 ## Project Contents
 
 - Simple character move
+- Camera movement
+- Moving platforms
+- Stomping enemies
 - Squash & strech logic basics (manipulating Sprite scale values)
 
 # Things to be included in the future
 
-- Stomping enemies
 - Wall jump
-- Camera movement
 
 # Assets
 
