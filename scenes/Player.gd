@@ -6,10 +6,13 @@ export var GRAVITY := 2200
 export var stomp_bump_strength := -400.0
 
 const UP_DIR = Vector2.UP
+const SNAP_DIRECTION := Vector2.DOWN
+const SNAP_VECTOR_LENGTH := 32.0
 
 var velocity = Vector2()
 var prev_velocity = Vector2()
-var ground_hit = false
+var _snap_vector := SNAP_DIRECTION * SNAP_VECTOR_LENGTH
+var ground_hit := false
 var direction
 
 onready var sprite := $Sprite
@@ -22,8 +25,11 @@ func _get_input() -> void:
 	
 	if _is_jumping():
 		velocity.y = JUMP_SPEED
+		_snap_vector = Vector2.ZERO
 	elif _is_jump_cancelled():
 		velocity.y = lerp(velocity.y, 0.0, 0.75)
+	elif _is_landing():
+		_snap_vector = SNAP_DIRECTION * SNAP_VECTOR_LENGTH
 
 
 func _stretch() -> void:
@@ -58,6 +64,10 @@ func _is_running() -> bool:
 	return is_on_floor() && !is_zero_approx(direction) && !is_on_wall()
 
 
+func _is_landing() -> bool:
+	return _snap_vector == Vector2.ZERO and is_on_floor()
+
+
 func _is_falling() -> bool:
 	return velocity.y > 0.0 && !is_on_floor()
 
@@ -83,8 +93,11 @@ func _update_look_direction() -> void:
 			sprite.flip_h = false
 
 
-func _stomp() -> void:
+func _stomp() -> void:	
 	if ray.is_colliding():
+		if not (_is_landing() and is_on_floor()):
+			return
+		
 		for idx in get_slide_count():
 			var collision := get_slide_collision(idx)
 			
@@ -104,4 +117,4 @@ func _physics_process(delta: float) -> void:
 	
 	velocity.y += GRAVITY * delta
 	prev_velocity = velocity
-	velocity = move_and_slide(velocity, UP_DIR)
+	velocity = move_and_slide_with_snap(velocity, _snap_vector, UP_DIR)

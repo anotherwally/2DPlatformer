@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/characters_packed.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Player.gd" type="Script" id=2]
+[ext_resource path="res://scenes/GridSnapper.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.0
@@ -72,7 +73,6 @@ tracks/0/keys = {
 }
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 0, -12 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
@@ -82,6 +82,7 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+flip_h = true
 hframes = 2
 region_enabled = true
 region_rect = Rect2( 144, 0, 48, 24 )
@@ -100,3 +101,10 @@ anims/walk = SubResource( 3 )
 enabled = true
 cast_to = Vector2( 0, 15 )
 collision_mask = 4
+
+[node name="GridSnapper" type="Position2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="GridSnapper"]
+current = true
+smoothing_enabled = true
